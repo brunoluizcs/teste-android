@@ -39,11 +39,7 @@ android {
 
 dependencies {
     implementation libraries
-
-    //Compatibilidade com api level 16
-    implementation ("com.squareup.okhttp3:okhttp:3.12.12") {
-        force = true
-    }
+    implementation project(":domain")
 
     implementation arch_libraries
     kapt librariesKapt
