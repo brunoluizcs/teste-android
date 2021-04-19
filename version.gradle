@@ -1,0 +1,26 @@
+ext {
+    versionMajor = 1
+    versionMinor = 0
+    versionPatch = 0
+    versionClassifier = null
+    isSnapshot = false
+
+    generatedVersionCode = generateVersionCode()
+    generatedVersionName = generateVersionName()
+}
+
+private Integer generateVersionCode() {
+    return min_sdk_version * 10000000 + versionMajor * 10000 + versionMinor * 100 + versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "$versionMajor.$versionMinor.$versionPatch"
+    if (versionClassifier == null && isSnapshot) {
+        versionClassifier = "SNAPSHOT"
+    }
+
+    if (versionClassifier != null) {
+        versionName += "-" + versionClassifier
+    }
+    return versionName;
+}

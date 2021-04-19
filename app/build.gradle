@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
+
+    defaultConfig {
+        applicationId "com.easynvest.investments"
+        minSdkVersion min_sdk_version
+        targetSdkVersion compile_sdk_version
+        versionCode generatedVersionCode
+        versionName generatedVersionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+    androidExtensions {
+        experimental = true
+    }
+
+}
+
+dependencies {
+    implementation libraries
+
+    //Compatibilidade com api level 16
+    implementation ("com.squareup.okhttp3:okhttp:3.12.12") {
+        force = true
+    }
+
+    implementation arch_libraries
+    kapt librariesKapt
+
+    testImplementation testLibraries
+    androidTestImplementation androidTestLibraries
+}
