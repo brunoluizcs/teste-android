@@ -9,7 +9,6 @@ import io.mockk.mockk
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 
-
 class FetchInvestmentUseCaseTest {
 
     @Test

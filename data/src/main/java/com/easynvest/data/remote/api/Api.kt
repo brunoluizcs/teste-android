@@ -12,5 +12,5 @@ interface Api {
         @Query("rate") rate: Double,
         @Query("maturityDate") maturityDate: String,
         @Query("isTaxFree") isTaxFree: Boolean
-    ) : String
+    ): String
 }
