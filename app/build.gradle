@@ -35,15 +35,22 @@ android {
         experimental = true
     }
 
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
     implementation libraries
-    implementation project(":domain")
 
     implementation arch_libraries
     kapt librariesKapt
 
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries
+
+    implementation project(":data")
+    implementation project(":domain")
+    implementation project(":views")
 }

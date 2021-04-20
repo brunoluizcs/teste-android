@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Investments</string>
+
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="label_application_amount">Quanto você gostaria de aplicar?*</string>
+    <string name="hint_currency">R$</string>
+    <string name="hint_maturity_date">dia/mês/ano</string>
+    <string name="label_maturity_date">Qual a data de vencimento do investimento?*</string>
+    <string name="label_rate">Qual o percentual do CDI do investimento?*</string>
+    <string name="hint_rate">100%</string>
+    <string name="prompt_simulate">Simular</string>
 </resources>
