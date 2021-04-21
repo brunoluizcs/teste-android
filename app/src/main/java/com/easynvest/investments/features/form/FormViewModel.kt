@@ -34,13 +34,19 @@ class FormViewModel(
 
     val formValidatorData = MediatorLiveData<Boolean>().apply {
         addSource(_liveDataAmount) {
-            this.postValue(isValidAmount(it))
+            this.postValue(
+                isFormValid(amountValue = it, rateValue = rate, maturityDateValue = maturityDate)
+            )
         }
         addSource(_liveDataRate) {
-            this.postValue(isValidRate(it))
+            this.postValue(
+                isFormValid(amountValue = amount, rateValue = it, maturityDateValue = maturityDate)
+            )
         }
         addSource(_liveDataMaturityDate) {
-            this.postValue(isValidMaturityDate(it))
+            this.postValue(
+                isFormValid(amountValue = amount, rateValue = rate, maturityDateValue = it)
+            )
         }
     }
 
@@ -65,6 +71,7 @@ class FormViewModel(
     fun simulateInvestment() {
         ioScope.launch {
             try{
+                _onInvestmentData.postValue(ViewState.Loading)
                 val request = InvestmentRequest(amount ?: 0.0,
                     "CDI",
                     rate ?: 0.0,false, maturityDate ?: Date())
@@ -79,6 +86,10 @@ class FormViewModel(
     private fun isValidMaturityDate(maturityDate: Date?) = maturityDate != null
     private fun isValidAmount(amount: Double?) = amount ?: 0.0 > 0.0
     private fun isValidRate(rate: Double?) = rate ?: 0.0 > 0.0
+    private fun isFormValid(amountValue: Double?, rateValue: Double?, maturityDateValue: Date?) =
+        isValidAmount(amountValue) &&
+                isValidRate(rateValue) &&
+                isValidMaturityDate(maturityDateValue)
 
 
     override fun onCleared() {

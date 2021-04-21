@@ -4,6 +4,8 @@ import com.easynvest.data.remote.api.Api
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 val remoteDataSourceModule = module {
@@ -29,6 +31,7 @@ inline fun <reified T> createWebService(
     url: String
 ): T {
     return Retrofit.Builder()
+        .addConverterFactory(ScalarsConverterFactory.create())
         .baseUrl(url)
         .client(okHttpClient)
         .build()

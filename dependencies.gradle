@@ -32,6 +32,7 @@ ext {
         def koin_version = '2.0.1'
         def hawk_version = "2.0.1"
         def cardview_version = "1.0.0"
+        def spinkit_version = "1.4.0"
 
 
         libraries = [
@@ -64,6 +65,8 @@ ext {
                 "com.google.code.gson:gson:$gson_version",
                 "com.squareup.retrofit2:converter-gson:$retrofit_gson_version",
                 "com.squareup.retrofit2:retrofit:$retrofit_version",
+                "com.squareup.retrofit2:converter-scalars:$retrofit_version",
+
 
                 // threading
                 "androidx.annotation:annotation:$annotations_version",
@@ -82,7 +85,8 @@ ext {
                 "com.orhanobut:hawk:$hawk_version",
 
 
-                "androidx.cardview:cardview:$cardview_version"
+                "androidx.cardview:cardview:$cardview_version",
+                "com.github.ybq:Android-SpinKit:$spinkit_version"
         ]
 
         arch_libraries = [
@@ -90,11 +94,6 @@ ext {
 
                 // Room for database
                 "androidx.room:room-ktx:$room_version"
-        ]
-
-        librariesKapt = [
-                "androidx.room:room-compiler:$room_version",
-                "com.github.bumptech.glide:compiler:$glide_version"
         ]
 
         testLibraries = [

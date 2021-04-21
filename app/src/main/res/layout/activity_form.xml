@@ -8,70 +8,92 @@
             android:layout_height="match_parent"
             tools:context=".features.form.FormActivity">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:paddingStart="@dimen/margin_16dp"
-                android:paddingEnd="@dimen/margin_16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
 
-            <TextView
-                    android:id="@+id/tvLabel1"
-                    android:text="@string/label_application_amount"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="@dimen/margin_70dp"
-                    style="@style/textViewStyle"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/containerLoading"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp">
 
-            <EditText
-                    android:id="@+id/edtAmount"
-                    android:inputType="numberDecimal"
-                    android:hint="@string/hint_currency"
-                    app:layout_constraintTop_toBottomOf="@id/tvLabel1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/editTextStyle"/>
+                <ProgressBar
+                        android:id="@+id/loadingIndicator"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="@dimen/loading_indicator_size"
+                        android:layout_height="@dimen/loading_indicator_size"/>
 
-            <TextView
-                    android:id="@+id/tvLabel2"
-                    android:text="@string/label_maturity_date"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/edtAmount"
-                    android:layout_marginTop="@dimen/margin_16dp"
-                    style="@style/textViewStyle"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <EditText
-                    android:id="@+id/edtMaturityDate"
-                    android:maxLength="11"
-                    android:hint="@string/hint_maturity_date"
-                    app:layout_constraintTop_toBottomOf="@id/tvLabel2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:inputType="date"
-                    style="@style/editTextStyle"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/containerForm"
+                    android:paddingStart="@dimen/margin_16dp"
+                    android:paddingEnd="@dimen/margin_16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                    android:id="@+id/tvLabel3"
-                    android:text="@string/label_rate"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/edtMaturityDate"
-                    android:layout_marginTop="@dimen/margin_16dp"
-                    style="@style/textViewStyle"/>
+                <TextView
+                        android:id="@+id/tvLabel1"
+                        android:text="@string/label_application_amount"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="@dimen/margin_70dp"
+                        style="@style/textViewStyle"/>
 
-            <EditText
-                    android:id="@+id/edtRate"
-                    android:hint="@string/hint_rate"
-                    app:layout_constraintTop_toBottomOf="@id/tvLabel3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/editTextStyle"/>
+                <EditText
+                        android:id="@+id/edtAmount"
+                        android:inputType="numberDecimal"
+                        android:hint="@string/hint_currency"
+                        app:layout_constraintTop_toBottomOf="@id/tvLabel1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        style="@style/editTextStyle"/>
 
-            <Button
-                    android:id="@+id/btnSimulate"
-                    android:enabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/edtRate"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="@dimen/margin_32dp"
-                    android:text="@string/prompt_simulate"
-                    style="@style/primaryButtonStyle"/>
+                <TextView
+                        android:id="@+id/tvLabel2"
+                        android:text="@string/label_maturity_date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edtAmount"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        style="@style/textViewStyle"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                        android:id="@+id/edtMaturityDate"
+                        android:maxLength="10"
+                        android:hint="@string/hint_maturity_date"
+                        app:layout_constraintTop_toBottomOf="@id/tvLabel2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:inputType="date"
+                        style="@style/editTextStyle"/>
 
+                <TextView
+                        android:id="@+id/tvLabel3"
+                        android:text="@string/label_rate"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edtMaturityDate"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        style="@style/textViewStyle"/>
+
+                <EditText
+                        android:id="@+id/edtRate"
+                        android:hint="@string/hint_rate"
+                        app:layout_constraintTop_toBottomOf="@id/tvLabel3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        style="@style/editTextStyle"/>
+
+                <Button
+                        android:id="@+id/btnSimulate"
+                        android:enabled="false"
+                        app:layout_constraintTop_toBottomOf="@id/edtRate"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="@dimen/margin_32dp"
+                        android:text="@string/prompt_simulate"
+                        style="@style/primaryButtonStyle"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
     </ScrollView>
 </layout>

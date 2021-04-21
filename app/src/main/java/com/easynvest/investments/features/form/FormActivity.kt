@@ -5,14 +5,17 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.easynvest.domain.model.InvestmentResponse
 import com.easynvest.investments.R
 import com.easynvest.investments.ViewState
 import com.easynvest.investments.databinding.ActivityFormBinding
+import com.easynvest.investments.features.resultform.ResultActivity
+import com.easynvest.views.extensions.visible
 import com.easynvest.views.watchers.CurrencyTextWatcher
 import com.easynvest.views.watchers.DateTextWatcher
+import com.easynvest.views.watchers.PercentageTextWatcher
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class FormActivity : AppCompatActivity() {
     private lateinit var binding : ActivityFormBinding
@@ -29,34 +32,53 @@ class FormActivity : AppCompatActivity() {
     }
 
     private fun setupObservables() {
-        viewModel.onInvestmentData.observe(this, Observer<ViewState<InvestmentResponse>> { state ->
+        viewModel.formValidatorData.observe(this) {
+            binding.btnSimulate.isEnabled = it
+        }
+
+        viewModel.onInvestmentData.observe(this) { state ->
             when (state) {
-                ViewState.Loading -> {}
-                is ViewState.Failure -> {}
+                ViewState.Loading -> {
+                    setVisibility(isLoading = true)
+                }
+                is ViewState.Failure -> {
+                    setVisibility(isFailure = state.error)
+                }
                 is ViewState.Success -> {
-                    Toast.makeText(this@FormActivity,
-                        "${state.result.annualGrossRateProfit}",
-                        Toast.LENGTH_LONG).show()
+                    setVisibility(response = state.result)
                 }
             }
-        })
+        }
+    }
+
+    private fun setVisibility(
+        isLoading: Boolean = false,
+        isFailure: Exception? = null,
+        response: InvestmentResponse? = null) {
+
+        response?.let {
+            startActivity(ResultActivity.getLaunchIntent(this, it))
+        }
+
+        isFailure?.let {
+            Toast.makeText(this, "${it.message}", Toast.LENGTH_LONG).show()
+        }
+
+        binding.containerForm.visible(! isLoading)
+        binding.containerLoading.visible(isLoading)
     }
 
     private fun setupListeners() {
-        viewModel.formValidatorData.observe(this, Observer {
-            binding.btnSimulate.isEnabled = it
+        binding.edtAmount.addTextChangedListener(CurrencyTextWatcher(binding.edtAmount).apply {
+            onCurrencyChanged = { viewModel.amount = it }
         })
 
-        binding.edtAmount.addTextChangedListener(CurrencyTextWatcher().apply {
-            onCurrencyChanged = {viewModel.amount = it}
+        binding.edtRate.addTextChangedListener(PercentageTextWatcher().apply {
+            onPercentageChange = { viewModel.rate = it }
         })
 
-        binding.edtRate.addTextChangedListener(CurrencyTextWatcher().apply {
-            onCurrencyChanged = {viewModel.rate = it}
-        })
-
-        binding.edtMaturityDate.addTextChangedListener(DateTextWatcher().apply {
-            onDateChanged = { viewModel.maturityDate = it}
+        binding.edtMaturityDate.addTextChangedListener(DateTextWatcher(binding.edtMaturityDate).apply {
+            onDateChanged = { viewModel.maturityDate = it }
         })
     }
 

@@ -11,4 +11,18 @@
     <string name="label_rate">Qual o percentual do CDI do investimento?*</string>
     <string name="hint_rate">100%</string>
     <string name="prompt_simulate">Simular</string>
+    <string name="label_simulation_result">resultado da simulação</string>
+    <string name="label_total_profits">Rendimento total de %s</string>
+    <string name="label_invested_amount">Valor investido inicialmente</string>
+    <string name="label_simulate_again">Simular novamente</string>
+    <string name="label_gross_amount">Valor bruto do investimento</string>
+    <string name="label_gross_amount_profit">Valor do rendimento</string>
+    <string name="label_taxes_amount">IR sobre o investimento</string>
+    <string name="label_net_amount">Valor líquido do investimento</string>
+    <string name="label_maturity_date_amount">Data de resgate</string>
+    <string name="label_maturity_business_days">Dias corridos</string>
+    <string name="label_monthly_gross_rate_profit">Rendimento mensal</string>
+    <string name="label_rate_amount">Percentual do CDI do investimento</string>
+    <string name="label_annual_gross_rate_profit">Rentabilidade anual</string>
+    <string name="label_rate_profit">Rentabilidade do período</string>
 </resources>

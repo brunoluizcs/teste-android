@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion compile_sdk_version
@@ -45,10 +44,12 @@ dependencies {
     implementation libraries
 
     implementation arch_libraries
-    kapt librariesKapt
 
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries
+
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+
 
     implementation project(":data")
     implementation project(":domain")

@@ -1,5 +1,9 @@
 package com.easynvest.domain.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class InvestmentResponse(
     val investmentParameter: InvestmentParameter,
     val grossAmount: Double,
@@ -13,4 +17,4 @@ data class InvestmentResponse(
     val taxesRate: Double,
     val rateProfit: Double,
     val annualNetRateProfit: Double
-)
+) : Parcelable
