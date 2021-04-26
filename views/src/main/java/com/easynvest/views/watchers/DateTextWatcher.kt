@@ -9,7 +9,7 @@ import java.util.Date
 import java.util.Locale
 
 class DateTextWatcher(private val editText: EditText) : TextWatcher {
-    var onDateChanged: ((Date?)->Unit)? = null
+    var onDateChanged: ((Date?) -> Unit)? = null
 
     private var current: String? = null
 
@@ -21,7 +21,7 @@ class DateTextWatcher(private val editText: EditText) : TextWatcher {
     override fun onTextChanged(s: CharSequence, start: Int, end: Int, count: Int) {
         if (s != current) {
             editText.removeTextChangedListener(this)
-            if(end == 0) {
+            if (end == 0) {
                 val cleanString = clearDateValue(s.toString()) ?: ""
                 val formatted = when (cleanString.length) {
                     2 -> "${cleanString.substring(0, 2)}/"
@@ -41,7 +41,7 @@ class DateTextWatcher(private val editText: EditText) : TextWatcher {
             value?.toString()?.let {
                 onDateChanged?.invoke(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(it))
             }
-        }catch (e: ParseException) {
+        } catch (e: ParseException) {
             onDateChanged?.invoke(null)
         }
     }

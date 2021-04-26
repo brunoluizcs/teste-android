@@ -2,8 +2,8 @@ package com.easynvest.investments.features.resultform
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.easynvest.domain.model.InvestmentResponse
 import com.easynvest.investments.R
@@ -36,8 +36,10 @@ class ResultActivity : AppCompatActivity() {
 
     private fun drawResultValues(response: InvestmentResponse) {
         binding.tvSimulationResult.text = response.grossAmount.toCurrency()
-        binding.tvLabelTotalProfits.text = getString(R.string.label_total_profits,
-            response.grossAmountProfit.toCurrency())
+        binding.tvLabelTotalProfits.text = getString(
+            R.string.label_total_profits,
+            response.grossAmountProfit.toCurrency()
+        )
         binding.tvInvestedAmount.text2 = response.investmentParameter.investedAmount.toCurrency()
         binding.tvGrossAmount.text2 = response.grossAmount.toCurrency()
         binding.tvGrossAmountProfit.text2 = response.grossAmountProfit.toCurrency()

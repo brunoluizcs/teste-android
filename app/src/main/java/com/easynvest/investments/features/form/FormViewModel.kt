@@ -9,13 +9,12 @@ import com.easynvest.domain.model.InvestmentResponse
 import com.easynvest.domain.usecase.FetchInvestmentUseCase
 import com.easynvest.investments.ViewState
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.CoroutineScope
 import java.util.Date
-
 
 class FormViewModel(
     private val useCase: FetchInvestmentUseCase,
@@ -30,7 +29,7 @@ class FormViewModel(
     private val _liveDataMaturityDate = MutableLiveData<Date?>()
 
     private val _onInvestmentData = MutableLiveData<ViewState<InvestmentResponse>>()
-    val onInvestmentData : LiveData<ViewState<InvestmentResponse>> = _onInvestmentData
+    val onInvestmentData: LiveData<ViewState<InvestmentResponse>> = _onInvestmentData
 
     val formValidatorData = MediatorLiveData<Boolean>().apply {
         addSource(_liveDataAmount) {
@@ -70,14 +69,16 @@ class FormViewModel(
 
     fun simulateInvestment() {
         ioScope.launch {
-            try{
+            try {
                 _onInvestmentData.postValue(ViewState.Loading)
-                val request = InvestmentRequest(amount ?: 0.0,
+                val request = InvestmentRequest(
+                    amount ?: 0.0,
                     "CDI",
-                    rate ?: 0.0,false, maturityDate ?: Date())
+                    rate ?: 0.0, false, maturityDate ?: Date()
+                )
                 val response = useCase.execute(request)
                 _onInvestmentData.postValue(ViewState.Success(response))
-            }catch (e: Exception) {
+            } catch (e: Exception) {
                 _onInvestmentData.postValue(ViewState.Failure(e))
             }
         }
@@ -88,9 +89,8 @@ class FormViewModel(
     private fun isValidRate(rate: Double?) = rate ?: 0.0 > 0.0
     private fun isFormValid(amountValue: Double?, rateValue: Double?, maturityDateValue: Date?) =
         isValidAmount(amountValue) &&
-                isValidRate(rateValue) &&
-                isValidMaturityDate(maturityDateValue)
-
+            isValidRate(rateValue) &&
+            isValidMaturityDate(maturityDateValue)
 
     override fun onCleared() {
         super.onCleared()

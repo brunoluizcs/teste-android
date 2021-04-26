@@ -6,9 +6,8 @@ import android.widget.EditText
 import java.text.NumberFormat
 import java.util.Locale
 
-
-class CurrencyTextWatcher(private val editText: EditText): TextWatcher {
-    var onCurrencyChanged: ((Double?)->Unit)? = null
+class CurrencyTextWatcher(private val editText: EditText) : TextWatcher {
+    var onCurrencyChanged: ((Double?) -> Unit)? = null
 
     private var current: String? = null
 
@@ -35,10 +34,8 @@ class CurrencyTextWatcher(private val editText: EditText): TextWatcher {
         try {
             val clearNumber = clearCurrencyToNumber(value?.toString())?.toDouble()
             onCurrencyChanged?.invoke(clearNumber?.div(100))
-        }catch (e: NumberFormatException){
+        } catch (e: NumberFormatException) {
             onCurrencyChanged?.invoke(null)
         }
     }
-
-
 }

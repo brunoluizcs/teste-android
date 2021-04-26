@@ -16,9 +16,8 @@ import com.easynvest.views.watchers.DateTextWatcher
 import com.easynvest.views.watchers.PercentageTextWatcher
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class FormActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityFormBinding
+    private lateinit var binding: ActivityFormBinding
 
     val viewModel: FormViewModel by viewModel()
 
@@ -54,7 +53,8 @@ class FormActivity : AppCompatActivity() {
     private fun setVisibility(
         isLoading: Boolean = false,
         isFailure: Exception? = null,
-        response: InvestmentResponse? = null) {
+        response: InvestmentResponse? = null
+    ) {
 
         response?.let {
             startActivity(ResultActivity.getLaunchIntent(this, it))
@@ -69,17 +69,23 @@ class FormActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
-        binding.edtAmount.addTextChangedListener(CurrencyTextWatcher(binding.edtAmount).apply {
-            onCurrencyChanged = { viewModel.amount = it }
-        })
+        binding.edtAmount.addTextChangedListener(
+            CurrencyTextWatcher(binding.edtAmount).apply {
+                onCurrencyChanged = { viewModel.amount = it }
+            }
+        )
 
-        binding.edtRate.addTextChangedListener(PercentageTextWatcher().apply {
-            onPercentageChange = { viewModel.rate = it }
-        })
+        binding.edtRate.addTextChangedListener(
+            PercentageTextWatcher().apply {
+                onPercentageChange = { viewModel.rate = it }
+            }
+        )
 
-        binding.edtMaturityDate.addTextChangedListener(DateTextWatcher(binding.edtMaturityDate).apply {
-            onDateChanged = { viewModel.maturityDate = it }
-        })
+        binding.edtMaturityDate.addTextChangedListener(
+            DateTextWatcher(binding.edtMaturityDate).apply {
+                onDateChanged = { viewModel.maturityDate = it }
+            }
+        )
     }
 
     private fun onBtnSimulateClicked(view: View) {
